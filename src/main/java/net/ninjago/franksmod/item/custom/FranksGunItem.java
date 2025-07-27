@@ -1,6 +1,7 @@
 package net.ninjago.franksmod.item.custom;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -23,11 +24,12 @@ public class FranksGunItem extends Item {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
         if (pLevel.isClientSide) return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
+        pPlayer.displayClientMessage(Component.literal("You fumble the gun and shoot yourself!"), false);
         pPlayer.hurt(new DamageSource(pLevel.registryAccess()
                         .registryOrThrow(Registries.DAMAGE_TYPE)
                         .getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Franksmod.MODID, "franks_gun_damage_type")))
                         , pPlayer, pPlayer),
-                10000
+                100
         );
 
         pLevel.playSeededSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),
@@ -39,6 +41,6 @@ public class FranksGunItem extends Item {
 
     @Override
     public int getUseDuration(@NotNull ItemStack stack) {
-        return 72000;
+        return 20;
     }
 }
