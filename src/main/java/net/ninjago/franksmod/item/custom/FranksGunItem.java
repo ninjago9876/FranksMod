@@ -3,6 +3,7 @@ package net.ninjago.franksmod.item.custom;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.ninjago.franksmod.Franksmod;
+import net.ninjago.franksmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class FranksGunItem extends Item {
@@ -27,6 +29,9 @@ public class FranksGunItem extends Item {
                         , pPlayer, pPlayer),
                 10000
         );
+
+        pLevel.playSeededSound(null, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),
+                ModSounds.FRANKS_GUN_SHOT.get(), SoundSource.NEUTRAL, 1, 1, 0);
 
         pPlayer.startUsingItem(pUsedHand);
         return InteractionResultHolder.sidedSuccess(pPlayer.getItemInHand(pUsedHand), pLevel.isClientSide());

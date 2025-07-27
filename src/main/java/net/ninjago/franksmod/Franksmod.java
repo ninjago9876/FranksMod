@@ -24,11 +24,9 @@ import org.slf4j.Logger;
 @Mod(Franksmod.MODID)
 public class Franksmod {
 
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "franksmod";
-    // Directly reference a slf4j logger
+
     public static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Items which will all be registered under the "franksmod" namespace
 
     public Franksmod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();

@@ -1,0 +1,8 @@
+{
+  "franks_gun_shot": {
+    "subtitles": "sounds.franksmod.franks_gun_shot",
+    "sounds": [
+      "franksmod:franks_gun_shot"
+    ]
+  }
+}
