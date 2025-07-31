@@ -1,6 +1,9 @@
 {
   "item.franksmod.franks_gun": "Frank's Totally Awesome Gun",
   "item.franksmod.franks_void": "Frank's Totally Awesome Void",
+  "item.franksmod.super_hoe": "Frank's Totally Awesome SUPER HOE™",
+
   "death.attack.suicide_by_gun": "%1$s shot themselves for some reason!",
+
   "sounds.franksmod.franks_gun_shot": "Gunshot"
 }

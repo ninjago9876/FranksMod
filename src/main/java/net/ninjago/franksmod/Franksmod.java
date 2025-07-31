@@ -17,6 +17,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.ninjago.franksmod.entity.ModEntities;
 import net.ninjago.franksmod.item.ModCreativeModeTabs;
 import net.ninjago.franksmod.item.ModItems;
+import net.ninjago.franksmod.renderer.ThrownSuperHoeRenderer;
 import net.ninjago.franksmod.sound.ModSounds;
 import org.slf4j.Logger;
 
@@ -69,6 +70,7 @@ public class Franksmod {
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
             EntityRenderers.register(ModEntities.VOID_PROJECTILE.get(), ThrownItemRenderer::new);
+            EntityRenderers.register(ModEntities.THROWN_SUPER_HOE.get(), ThrownSuperHoeRenderer::new);
         }
     }
 }

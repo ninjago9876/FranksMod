@@ -19,6 +19,7 @@ public class ModCreativeModeTabs {
                     .displayItems(((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.FRANKS_GUN.get());
                         pOutput.accept(ModItems.FRANKS_VOID.get());
+                        pOutput.accept(ModItems.SUPER_HOE.get());
                     }))
                     .build());
 
