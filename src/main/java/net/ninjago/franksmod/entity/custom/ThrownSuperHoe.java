@@ -12,10 +12,15 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.ninjago.franksmod.Franksmod;
 import net.ninjago.franksmod.item.ModItems;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ThrownSuperHoe extends ThrownTrident {
     private int radius = 4;
@@ -23,6 +28,7 @@ public class ThrownSuperHoe extends ThrownTrident {
 
     private static final TagKey<Block> TILLABLE_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Franksmod.MODID, "tillable"));
     private static final TagKey<Block> IGNORE_TILL_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Franksmod.MODID, "ignore_till"));
+    private static final TagKey<Block> CROPS_TAG = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Franksmod.MODID, "crops"));
 
     public ThrownSuperHoe(EntityType<? extends ThrownTrident> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -68,7 +74,18 @@ public class ThrownSuperHoe extends ThrownTrident {
     }
 
     private boolean tryTillBlock(Level level, BlockPos pos) {
-        if (level.getBlockState(pos).is(TILLABLE_TAG) && level.getBlockState(pos.above()).is(IGNORE_TILL_TAG)) {
+        if (level.getBlockState(pos).is(TILLABLE_TAG) && (level.getBlockState(pos.above()).is(IGNORE_TILL_TAG) || level.getBlockState(pos.above()).is(CROPS_TAG))) {
+            int maxAge = level.getBlockState(pos.above()).getProperties()
+                    .stream()
+                    .filter(p -> p.getName().equals("age") && p instanceof IntegerProperty)
+                    .map(p -> ((IntegerProperty) p).getPossibleValues().stream()) // << now each is a Stream<Integer>
+                    .flatMap(s -> s) // or use .flatMap(Stream::of) safely
+                    .max(Integer::compareTo) // Find the max value
+                    .orElse(0); // Fallback default
+
+            if (level.getBlockState(pos.above()).is(CROPS_TAG) && level.getBlockState(pos.above()).getValue(BlockStateProperties.AGE_7) != maxAge) {
+                return false;
+            }
             this.level().setBlock(pos, Blocks.FARMLAND.defaultBlockState(), 3);
             this.level().destroyBlock(pos.above(), true);
             return true;
