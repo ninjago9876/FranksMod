@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "O ",
+    "O "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:diamond_block"
+    },
+    "O": {
+      "item": "minecraft:oak_log"
+    }
+  },
+  "result": {
+    "item": "franksmod:super_hoe",
+    "count": 1
+  }
+}
